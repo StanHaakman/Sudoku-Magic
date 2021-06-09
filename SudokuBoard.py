@@ -175,6 +175,18 @@ class SudokuBoard(object):
 			return False
 		return True
 
+	def find_empty_spot(self, grid):
+		"""
+		Return the next empty spot in the grid
+		:param grid:
+		:return:
+		"""
+		for i in range(9):
+			for j in range(9):
+				if grid[i][j] == 0:
+					return i, j
+		return
+
 	def run_application(self):
 		"""
 		Own function
