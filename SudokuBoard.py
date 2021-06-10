@@ -4,6 +4,7 @@ from SudokuError import SudokuError
 
 
 class SudokuBoard(object):
+
 	def __init__(self):
 		self.counter = 0
 		self.path = []
@@ -132,6 +133,9 @@ class SudokuBoard(object):
 				if board[i][j] == 0:
 					return i, j
 		return
+
+	def get_board(self):
+		return self.board
 
 	def print_board(self):
 		for row in self.board:
