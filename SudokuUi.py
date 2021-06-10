@@ -1,6 +1,8 @@
 from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM
 
-from main import WIDTH, HEIGHT
+MARGIN = 20  # Pixels around the board
+SIDE = 50  # Width of every board cell.
+WIDTH = HEIGHT = MARGIN * 2 + SIDE * 9  # Width and height of the whole board
 
 
 class SudokuUI(Frame):
@@ -29,7 +31,20 @@ class SudokuUI(Frame):
 		self.canvas.bind("<Key>", self.__key_pressed())
 
 	def __draw_grid(self):
-		pass
+		for i in range(10):
+			color = "black" if i % 3 == 0 else "gray"
+
+			x0 = MARGIN + i * SIDE
+			y0 = MARGIN
+			x1 = MARGIN + i * SIDE
+			y1 = HEIGHT - MARGIN
+			self.canvas.create_line(x0, y0, x1, y1, fill = color)
+
+			x0 = MARGIN
+			y0 = MARGIN + i * SIDE
+			x1 = WIDTH - MARGIN
+			y1 = MARGIN + i * SIDE
+			self.canvas.create_line(x0, y0, x1, y1, fill = color)
 
 	def __draw_board(self):
 		pass
