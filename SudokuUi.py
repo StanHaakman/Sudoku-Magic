@@ -107,3 +107,18 @@ class SudokuUI(Frame):
 			self.__draw_cursor()
 			if self.game.check_win():
 				self.__draw_victory()
+
+	def __draw_victory(self):
+		x0 = y0 = MARGIN + SIDE * 2
+		x1 = y1 = MARGIN + SIDE * 7
+		self.canvas.create_oval(
+			x0, y0, x1, y1,
+			tags="victory", fill="dark orange", outline="orange"
+		)
+
+		x = y = MARGIN + 4 * SIDE + SIDE / 2
+		self.canvas.create_text(
+			x, y,
+			text="You win!", tags="winner",
+			fill="white", font=("Arial", 32)
+		)
