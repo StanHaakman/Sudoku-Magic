@@ -4,7 +4,7 @@ from SudokuError import SudokuError
 
 
 class SudokuBoard(object):
-	def __init__(self, root):
+	def __init__(self):
 		self.counter = 0
 		self.path = []
 		self.board = self.__create_board()
