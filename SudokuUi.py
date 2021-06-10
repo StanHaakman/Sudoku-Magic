@@ -84,9 +84,18 @@ class SudokuUI(Frame):
 
 		self.__draw_cursor()
 
+	def __draw_cursor(self):
+		self.canvas.delete("cursor")
+
+		if self.row >= 0 and self.col >= 0:
+			x0 = MARGIN + self.col * SIDE + 1
+			y0 = MARGIN + self.row * SIDE + 1
+			x1 = MARGIN + (self.col + 1) * SIDE - 1
+			y1 = MARGIN + (self.row + 1) * SIDE - 1
+			self.canvas.create_rectangle(
+				x0, y0, x1, y1,
+				outline="red", tags="cursor"
+			)
+
 	def __key_pressed(self):
 		pass
-
-	def __draw_cursor(self):
-		pass
-
