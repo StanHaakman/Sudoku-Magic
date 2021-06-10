@@ -10,4 +10,5 @@ WIDTH = HEIGHT = MARGIN * 2 + SIDE * 9  # Width and height of the whole board
 
 gameboard = SudokuBoard(root = tk.Tk())
 
+gameboard.print_board()
 

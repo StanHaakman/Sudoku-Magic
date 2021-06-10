@@ -30,38 +30,9 @@ class SudokuBoard(object):
 
 		self.__generate_solution(self.board)
 
-		# iterate over each line
-		# for line in board_file:
-		# 	line = line.strip()
-		#
-		# 	# raise error if line is longer or shorter than 9 characters
-		# 	if len(line) != 9:
-		# 		board = np.array([])
-		# 		raise SudokuError(
-		# 			"Each line in the sudoku puzzle must be 9 chars long."
-		# 		)
-		#
-		# 	# create a list for the line
-		# 	print(board)
-		# 	np.append(board, [])
-		# 	print(board)
-		#
-		# 	# then iterate over each character
-		# 	for c in line:
-		# 		# Raise an error if the character is not an integer
-		# 		if not c.isdigit():
-		# 			raise SudokuError(
-		# 				"Valid characters for a sudoku puzzle must be in 0-9"
-		# 			)
-		# 		# Add to the latest list for the line
-		# 		board[-1].append(int(c))
-
 		# Raise an error if there are not 9 lines
 		if len(self.board) != 9:
 			raise SudokuError("Each sudoku puzzle must be 9 lines long")
-
-		for row in self.board:
-			print(row)
 
 		# Return the constructed board
 		return self.board
@@ -162,3 +133,6 @@ class SudokuBoard(object):
 					return i, j
 		return
 
+	def print_board(self):
+		for row in self.board:
+			print(row)
