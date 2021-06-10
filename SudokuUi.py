@@ -27,8 +27,8 @@ class SudokuUI(Frame):
 		self.__draw_grid()
 		self.__draw_board()
 
-		self.canvas.bind("<Button-1>", self.__cell_clicked())
-		self.canvas.bind("<Key>", self.__key_pressed())
+		self.canvas.bind("<Button-1>", self.__cell_clicked)
+		self.canvas.bind("<Key>", self.__key_pressed)
 
 	def __draw_grid(self):
 		for i in range(10):
