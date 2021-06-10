@@ -61,11 +61,32 @@ class SudokuUI(Frame):
 					self.canvas.create_text(x, y, text=answer, tags="numbers", fill=color)
 
 	def __clear_answers(self):
-		pass
+		self.game.start()
+		self.canvas.delete("victory")
+		self.__draw_board()
 
-	def __cell_clicked(self):
-		pass
+	def __cell_clicked(self, event):
+		if self.game.game_over:
+			return
+
+		x, y = event.x, event.y
+		if MARGIN < x < WIDTH - MARGIN and MARGIN < y < HEIGHT - MARGIN:
+			self.canvas.focus_set()
+
+			# get row and col numbers from x,y coordinates
+			row, col = (y - MARGIN) / SIDE, (x - MARGIN) / SIDE
+
+			# if cell was selected already - deselect it
+			if (row, col) == (self.row, self.col):
+				self.row, self.col = -1, -1
+			elif self.game.puzzle[row][col] == 0:
+				self.row, self.col = row, col
+
+		self.__draw_cursor()
 
 	def __key_pressed(self):
+		pass
+
+	def __draw_cursor(self):
 		pass
 
