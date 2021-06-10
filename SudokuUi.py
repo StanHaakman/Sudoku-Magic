@@ -47,7 +47,18 @@ class SudokuUI(Frame):
 			self.canvas.create_line(x0, y0, x1, y1, fill = color)
 
 	def __draw_board(self):
-		pass
+		self.canvas.delete("Numbers")
+
+		for i in range(9):
+			for j in range(9):
+				answer = self.game.puzzle[i][j]
+				if answer != 0:
+					x = MARGIN + j * SIDE + SIDE / 2
+					y = MARGIN + i * SIDE + SIDE / 2
+
+					original = self.game.start_puzzle[i][j]
+					color = "black" if answer == original else "sea green"
+					self.canvas.create_text(x, y, text=answer, tags="numbers", fill=color)
 
 	def __clear_answers(self):
 		pass
