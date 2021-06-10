@@ -29,13 +29,27 @@ class SudokuGame(object):
 		self.game_over = True
 		return True
 
+	def __check_block(self, block):
+		"""
+		This returns true if the set of numbers contains 1-9 and is valid for the sudoku solution
+		:param block:
+		:return:
+		"""
+		return set(block) == set(range(1, 10))
+
 	def __check_row(self, row):
-		pass
+		return self.__check_block(self.start_puzzle[row])
 
 	def __check_column(self, column):
-		pass
+		return self.__check_block([self.puzzle[row][column] for row in range(9)])
 
 	def __check_square(self, row, column):
-		pass
+		return self.__check_block(
+			[
+				self.puzzle[r][c]
+				for r in range(row * 3, (row + 1) * 3)
+				for c in range(column * 3, (column + 1) * 3)
+			]
+		)
 	
 	
