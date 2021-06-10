@@ -97,5 +97,13 @@ class SudokuUI(Frame):
 				outline="red", tags="cursor"
 			)
 
-	def __key_pressed(self):
-		pass
+	def __key_pressed(self, event):
+		if self.game.game_over:
+			return
+		if self.row >= 0 and self.col >= 0 and event.char in "1234567890":
+			self.game.puzzle[self.row][self.col] = int(event.char)
+			self.col, self.row = -1, -1
+			self.__draw_board()
+			self.__draw_cursor()
+			if self.game.check_win():
+				self.__draw_victory()
