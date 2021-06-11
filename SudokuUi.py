@@ -1,3 +1,4 @@
+import math
 from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM
 
 MARGIN = 20  # Pixels around the board
@@ -21,7 +22,7 @@ class SudokuUI(Frame):
 		self.canvas = Canvas(self, width = WIDTH, height = HEIGHT)
 		self.canvas.pack(fill=BOTH, side=TOP)
 
-		clear_button = Button(self, text="Verwijder eigen cijfers", command=self.__clear_answers())
+		clear_button = Button(self, text="Verwijder eigen cijfers", command=self.__clear_answers)
 		clear_button.pack(fill=BOTH, side=BOTTOM)
 
 		self.__draw_grid()
@@ -47,7 +48,7 @@ class SudokuUI(Frame):
 			self.canvas.create_line(x0, y0, x1, y1, fill = color)
 
 	def __draw_board(self):
-		self.canvas.delete("Numbers")
+		self.canvas.delete("numbers")
 
 		for i in range(9):
 			for j in range(9):
@@ -56,8 +57,8 @@ class SudokuUI(Frame):
 					x = MARGIN + j * SIDE + SIDE / 2
 					y = MARGIN + i * SIDE + SIDE / 2
 
-					original = self.game.start_puzzle[i][j]
-					color = "black" if answer == original else "sea green"
+					self.original = self.game.start_puzzle[i][j]
+					color = "black" if answer == self.original else "sea green"
 					self.canvas.create_text(x, y, text=answer, tags="numbers", fill=color)
 
 	def __clear_answers(self):
@@ -75,6 +76,8 @@ class SudokuUI(Frame):
 
 			# get row and col numbers from x,y coordinates
 			row, col = (y - MARGIN) / SIDE, (x - MARGIN) / SIDE
+
+			row, col = math.floor(row), math.floor(col)
 
 			# if cell was selected already - deselect it
 			if (row, col) == (self.row, self.col):
@@ -101,12 +104,14 @@ class SudokuUI(Frame):
 		if self.game.game_over:
 			return
 		if self.row >= 0 and self.col >= 0 and event.char in "1234567890":
-			self.game.puzzle[self.row][self.col] = int(event.char)
-			self.col, self.row = -1, -1
-			self.__draw_board()
-			self.__draw_cursor()
-			if self.game.check_win():
-				self.__draw_victory()
+			column = [self.game.puzzle[i][self.col] for i in range(9)]
+			if int(event.char) not in self.game.puzzle[self.row] and int(event.char) not in column:
+				self.game.puzzle[self.row][self.col] = int(event.char)
+				self.col, self.row = -1, -1
+				self.__draw_board()
+				self.__draw_cursor()
+				if self.game.check_win():
+					self.__draw_victory()
 
 	def __draw_victory(self):
 		x0 = y0 = MARGIN + SIDE * 2

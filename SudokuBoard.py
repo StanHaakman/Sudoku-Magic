@@ -150,7 +150,7 @@ class SudokuBoard(object):
 		non_empty_squares = self.get_non_empty_squares(self.board)
 		non_empty_squares_count = len(non_empty_squares)
 		rounds = 3
-		while rounds > 0 and non_empty_squares_count >= 17:
+		while rounds > 0 and non_empty_squares_count >= 22:
 			row, col = non_empty_squares.pop()
 			non_empty_squares_count -= 1
 

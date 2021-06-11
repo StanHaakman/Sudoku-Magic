@@ -38,7 +38,7 @@ class SudokuGame(object):
 		return set(block) == set(range(1, 10))
 
 	def __check_row(self, row):
-		return self.__check_block(self.start_puzzle[row])
+		return self.__check_block(self.puzzle[row])
 
 	def __check_column(self, column):
 		return self.__check_block([self.puzzle[row][column] for row in range(9)])
