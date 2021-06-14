@@ -82,7 +82,7 @@ class SudokuUI(Frame):
 			# if cell was selected already - deselect it
 			if (row, col) == (self.row, self.col):
 				self.row, self.col = -1, -1
-			elif self.game.puzzle[row][col] == 0:
+			elif self.game.start_puzzle[row][col] == 0:
 				self.row, self.col = row, col
 
 		self.__draw_cursor()
