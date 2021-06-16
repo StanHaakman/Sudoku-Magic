@@ -54,5 +54,3 @@ class SudokuGame(object):
 
 	def new_game(self):
 		self.start_puzzle = SudokuBoard().get_board()
-
-	

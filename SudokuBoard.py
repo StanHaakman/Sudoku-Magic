@@ -4,11 +4,11 @@ from random import shuffle
 
 class SudokuBoard(object):
 
-	def __init__(self):
+	def __init__(self, remaining = 25):
 		self.counter = 0
 		self.path = []
 		self.board = self.__create_board()
-		self.remove_numbers_from_board()
+		self.remove_numbers_from_board(remaining)
 
 	def __create_board(self):
 		# create an initial matrix, or a list of a list
@@ -139,46 +139,16 @@ class SudokuBoard(object):
 		shuffle(non_empty_squares)
 		return non_empty_squares
 
-	def remove_numbers_from_board(self):
+	def remove_numbers_from_board(self, remaining):
 		non_empty_squares = self.get_non_empty_squares(self.board)
 		non_empty_squares_count = len(non_empty_squares)
-		rounds = 3
-		while rounds > 0 and non_empty_squares_count >= 22:
+
+		while non_empty_squares_count != remaining:
 			row, col = non_empty_squares.pop()
 			non_empty_squares_count -= 1
 
-			removed_square = self.board[row][col]
 			self.board[row][col] = 0
-
-			board_copy = copy.deepcopy(self.board)
-
-			self.counter = 0
-			self.solve_puzzle(board_copy)
-
-			if self.counter != 1:
-				self.board[row][col] = removed_square
-				non_empty_squares_count += 1
-				rounds -= 1
 		return
-
-	def solve_puzzle(self, board):
-		for i in range(0, 81):
-			row = i // 9
-			col = i % 9
-
-			if board[row][col] == 0:
-				for number in range(1, 10):
-					if self.__location_valid(board, row, col, number):
-						board[row][col] = number
-						if not self.__find_empty_spot(board):
-							self.counter += 1
-							break
-						else:
-							if self.solve_puzzle(board):
-								return True
-				break
-		board[row][col] = 0
-		return False
 
 	def get_board(self):
 		return self.board

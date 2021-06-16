@@ -146,6 +146,6 @@ class SudokuUI(Frame):
 	def __solve(self):
 		self.solver = SudokuSolver(self.game.start_puzzle)
 		self.game.puzzle = self.solver.grid
-		print(self.game.puzzle)
 		self.canvas.delete("victory")
 		self.__draw_board()
+		self.__draw_victory()

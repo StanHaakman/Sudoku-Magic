@@ -1,76 +1,57 @@
 class SudokuSolver(object):
 	def __init__(self, grid):
 		self.grid = grid
-
 		self.solve()
 
-	def test_sudoku(self):
-		pass
+	def solve(self):
+		"""Solve puzzle with Recursive Backtracking"""
+		empty_spot = self.find_unsettled_spot()
+		if not empty_spot:
+			return True
+		else:
+			row, col = empty_spot
 
-	def possible(self, y, x, n):
-		# n is the number we want to fill in
+		#  Loop through all the available numbers
+		for number in range(1, 10):
+			# If the number has no conflicts in its row, column or subgrid
+			if self.no_conflicts(row, col, number):
+				# Then overwrite the 0 with the new number
+				self.grid[row][col] = number
+
+				if self.solve():
+					return True
+
+				# This is where backtracking happens
+				# Reset the latest position back to 0 and try with new number value
+				self.grid[row][col] = 0
+
+		return False
+
+	def no_conflicts(self, row, col, number):
 		# 1st
 		# check if n already existed in vertical (y) axis
 		# if exists, return False (not possible)
 		for i in range(9):
-			if self.grid[y][i] == n:
+			if self.grid[row][i] == number:
 				return False
 
 		# 2nd
 		# check horizontal (x) axis
 		for i in range(9):
-			if self.grid[i][x] == n:
+			if self.grid[i][col] == number:
 				return False
 
 		# 3rd
 		# check the 3x3 local grid
-		x0 = (x // 3) * 3
-		y0 = (y // 3) * 3
+		x0 = (col // 3) * 3
+		y0 = (row // 3) * 3
 		for i in range(3):
 			for j in range(3):
-				if self.grid[y0 + i][x0 + j] == n:
+				if self.grid[y0 + i][x0 + j] == number:
 					return False
 
 		# return true if pass all 3 checks.
 		return True
-
-	def solve(self):
-		"""Solve puzzle with Recursive Backtracking"""
-		empty_spots = self.find_unsettled_spot()
-		if not empty_spots:
-			return True
-		else:
-			row, col = empty_spots
-
-		for i in range(1, 10):
-			if self.possible(row, col, i):
-				self.grid[row][col] = i
-
-				if self.solve():
-					return True
-
-				self.grid[row][col] = 0
-
-		return False
-
-	def no_conflicts(self, grid, row, col, number):
-		"""returns True if the number has been used in that row"""
-		if number in grid[row]:
-			return True
-
-		"""returns True if the number has been used in that column"""
-		for i in range(9):
-			if grid[i][col] == number:
-				return True
-
-		"""returns True if the number has been used in that subgrid/box"""
-		sub_row = (row // 3) * 3
-		sub_col = (col // 3) * 3
-		for i in range(sub_row, (sub_row + 3)):
-			for j in range(sub_col, (sub_col + 3)):
-				if grid[i][j] == number:
-					return True
-		return False
 
 	def find_unsettled_spot(self):
 		"""return the next empty square coordinates in the grid"""
