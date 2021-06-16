@@ -1,4 +1,5 @@
 import math
+from copy import deepcopy
 from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM, Label
 
 from SudokuSolver import SudokuSolver
@@ -32,13 +33,13 @@ class SudokuUI(Frame):
 		new_game_text = Label(new_game_frame, text = "Start nieuw spel:")
 		new_game_text.grid(row=0)
 
-		easy_game_button = Button(new_game_frame, text = "Makkelijk", command = lambda: self.__new_game(35))
+		easy_game_button = Button(new_game_frame, text = "Makkelijk", command = lambda: self.__new_game(40))
 		easy_game_button.grid(row=1, column=0)
 
-		medium_game_button = Button(new_game_frame, text = "Gemiddeld", command = lambda: self.__new_game(28))
+		medium_game_button = Button(new_game_frame, text = "Gemiddeld", command = lambda: self.__new_game(34))
 		medium_game_button.grid(row=1, column=1)
 
-		hard_game_button = Button(new_game_frame, text = "Moeilijk", command = lambda: self.__new_game(22))
+		hard_game_button = Button(new_game_frame, text = "Moeilijk", command = lambda: self.__new_game(26))
 		hard_game_button.grid(row=1, column=2)
 
 		insane_game_button = Button(new_game_frame, text = "Onmogelijk", command = lambda: self.__new_game(17))
@@ -159,7 +160,7 @@ class SudokuUI(Frame):
 		self.__draw_board()
 
 	def __solve(self):
-		self.solver = SudokuSolver(self.game.start_puzzle)
+		self.solver = SudokuSolver(deepcopy(self.game.start_puzzle))
 		self.game.puzzle = self.solver.grid
 		self.canvas.delete("victory")
 		self.__draw_board()
