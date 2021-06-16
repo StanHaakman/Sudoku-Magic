@@ -1,5 +1,4 @@
-from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM
-import argparse
+from tkinter import Tk
 
 from SudokuGame import SudokuGame
 from SudokuUi import SudokuUI
@@ -16,5 +15,5 @@ if __name__ == '__main__':
 
 	root = Tk()
 	SudokuUI(root, game)
-	root.geometry("%dx%d" % (WIDTH, HEIGHT + 40))
+	root.geometry("%dx%d" % (WIDTH + (MARGIN * 2), HEIGHT + 150))
 	root.mainloop()

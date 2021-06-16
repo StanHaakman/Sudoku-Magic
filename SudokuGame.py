@@ -52,5 +52,5 @@ class SudokuGame(object):
 			]
 		)
 
-	def new_game(self):
-		self.start_puzzle = SudokuBoard().get_board()
+	def new_game(self, remaining):
+		self.start_puzzle = SudokuBoard(remaining).get_board()

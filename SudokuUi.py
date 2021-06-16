@@ -1,5 +1,5 @@
 import math
-from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM
+from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM, Label
 
 from SudokuSolver import SudokuSolver
 
@@ -12,7 +12,6 @@ class SudokuUI(Frame):
 	def __init__(self, parent, game):
 		self.game = game
 		self.parent = parent
-		self.parent.geometry('1000x1000')
 		Frame.__init__(self, parent)
 
 		self.row, self.col = 0, 0
@@ -28,11 +27,27 @@ class SudokuUI(Frame):
 		clear_button = Button(self, text = "Verwijder eigen cijfers", command = self.__clear_answers)
 		clear_button.pack(fill = BOTH, side = BOTTOM)
 
-		new_game_button = Button(self, text = "Start nieuw spel", command = self.__new_game)
-		new_game_button.pack(fill = BOTH, side = BOTTOM)
+		new_game_frame = Frame(self)
+
+		new_game_text = Label(new_game_frame, text = "Start nieuw spel:")
+		new_game_text.grid(row=0)
+
+		easy_game_button = Button(new_game_frame, text = "Makkelijk", command = lambda: self.__new_game(35))
+		easy_game_button.grid(row=1, column=0)
+
+		medium_game_button = Button(new_game_frame, text = "Gemiddeld", command = lambda: self.__new_game(28))
+		medium_game_button.grid(row=1, column=1)
+
+		hard_game_button = Button(new_game_frame, text = "Moeilijk", command = lambda: self.__new_game(22))
+		hard_game_button.grid(row=1, column=2)
+
+		insane_game_button = Button(new_game_frame, text = "Onmogelijk", command = lambda: self.__new_game(17))
+		insane_game_button.grid(row=1, column=3)
+
+		new_game_frame.pack(fill=BOTH, side=BOTTOM)
 
 		solve_button = Button(self, text = "Solve It!", command = self.__solve)
-		solve_button.pack(fill = BOTH, side = TOP)
+		solve_button.pack(fill = BOTH, side = BOTTOM)
 
 		self.__draw_grid()
 		self.__draw_board()
@@ -137,8 +152,8 @@ class SudokuUI(Frame):
 			fill = "white", font = ("Arial", 32)
 		)
 
-	def __new_game(self):
-		self.game.new_game()
+	def __new_game(self, remaining):
+		self.game.new_game(remaining)
 		self.game.start()
 		self.canvas.delete("victory")
 		self.__draw_board()
