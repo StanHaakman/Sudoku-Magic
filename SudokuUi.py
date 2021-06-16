@@ -1,7 +1,7 @@
 import math
 from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM
 
-MARGIN = 20  # Pixels around the board
+MARGIN = 30  # Pixels around the board
 SIDE = 50  # Width of every board cell.
 WIDTH = HEIGHT = MARGIN * 2 + SIDE * 9  # Width and height of the whole board
 
@@ -10,20 +10,24 @@ class SudokuUI(Frame):
 	def __init__(self, parent, game):
 		self.game = game
 		self.parent = parent
+		self.parent.geometry('1000x1000')
 		Frame.__init__(self, parent)
 
-		self.row, self.col = 0,0
+		self.row, self.col = 0, 0
 
 		self.__startUI()
 
 	def __startUI(self):
 		self.parent.title("Magic Sudoku")
-		self.pack(fill=BOTH, expand=1)
+		self.pack(fill = BOTH, expand = 2)
 		self.canvas = Canvas(self, width = WIDTH, height = HEIGHT)
-		self.canvas.pack(fill=BOTH, side=TOP)
+		self.canvas.pack(fill = BOTH, side = TOP)
 
-		clear_button = Button(self, text="Verwijder eigen cijfers", command=self.__clear_answers)
-		clear_button.pack(fill=BOTH, side=BOTTOM)
+		clear_button = Button(self, text = "Verwijder eigen cijfers", command = self.__clear_answers)
+		clear_button.pack(fill = BOTH, side = BOTTOM)
+
+		new_game_button = Button(self, text = "Start nieuw spel", command = self.__new_game)
+		new_game_button.pack(fill = BOTH, side = BOTTOM)
 
 		self.__draw_grid()
 		self.__draw_board()
@@ -59,7 +63,7 @@ class SudokuUI(Frame):
 
 					self.original = self.game.start_puzzle[i][j]
 					color = "black" if answer == self.original else "sea green"
-					self.canvas.create_text(x, y, text=answer, tags="numbers", fill=color)
+					self.canvas.create_text(x, y, text = answer, tags = "numbers", fill = color, font=("Purisa", 20))
 
 	def __clear_answers(self):
 		self.game.start()
@@ -97,7 +101,7 @@ class SudokuUI(Frame):
 			y1 = MARGIN + (self.row + 1) * SIDE - 1
 			self.canvas.create_rectangle(
 				x0, y0, x1, y1,
-				outline="red", tags="cursor"
+				outline = "red", tags = "cursor"
 			)
 
 	def __key_pressed(self, event):
@@ -118,12 +122,18 @@ class SudokuUI(Frame):
 		x1 = y1 = MARGIN + SIDE * 7
 		self.canvas.create_oval(
 			x0, y0, x1, y1,
-			tags="victory", fill="dark orange", outline="orange"
+			tags = "victory", fill = "dark orange", outline = "orange"
 		)
 
 		x = y = MARGIN + 4 * SIDE + SIDE / 2
 		self.canvas.create_text(
 			x, y,
-			text="You win!", tags="winner",
-			fill="white", font=("Arial", 32)
+			text = "You win!", tags = "winner",
+			fill = "white", font = ("Arial", 32)
 		)
+
+	def __new_game(self):
+		self.game.new_game()
+		self.game.start()
+		self.canvas.delete("victory")
+		self.__draw_board()

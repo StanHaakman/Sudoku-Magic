@@ -1,8 +1,6 @@
 import copy
 from random import shuffle
 
-from SudokuError import SudokuError
-
 
 class SudokuBoard(object):
 
@@ -17,7 +15,6 @@ class SudokuBoard(object):
 		self.board = [[0 for i in range(9)] for j in range(9)]
 
 		'''
-		Create emtpy numpy array with zeros to be filled in
 		[
 			[0. 0. 0. 0. 0. 0. 0. 0. 0.]
 			[0. 0. 0. 0. 0. 0. 0. 0. 0.]
@@ -33,10 +30,6 @@ class SudokuBoard(object):
 
 		self.__generate_solution(self.board)
 
-		# Raise an error if there are not 9 lines
-		if len(self.board) != 9:
-			raise SudokuError("Each sudoku puzzle must be 9 lines long")
-
 		# Return the constructed board
 		return self.board
 
@@ -50,7 +43,7 @@ class SudokuBoard(object):
 			if board[row][col] == 0:
 				shuffle(number_list)
 				for number in number_list:
-					if self.__valid_location(board, row, col, number):
+					if self.__location_valid(board, row, col, number):
 						self.path.append((number, row, col))
 						board[row][col] = number
 						if not self.__find_empty_spot(board):
@@ -106,7 +99,7 @@ class SudokuBoard(object):
 					return True
 		return False
 
-	def __valid_location(self, board, row, col, number):
+	def __location_valid(self, board, row, col, number):
 		"""
 		Return false if the location of the given number is invalid
 		:param board:
@@ -175,7 +168,7 @@ class SudokuBoard(object):
 
 			if board[row][col] == 0:
 				for number in range(1, 10):
-					if self.__valid_location(board, row, col, number):
+					if self.__location_valid(board, row, col, number):
 						board[row][col] = number
 						if not self.__find_empty_spot(board):
 							self.counter += 1

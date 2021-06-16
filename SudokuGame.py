@@ -51,5 +51,8 @@ class SudokuGame(object):
 				for c in range(column * 3, (column + 1) * 3)
 			]
 		)
-	
+
+	def new_game(self):
+		self.start_puzzle = SudokuBoard().get_board()
+
 	

@@ -1,4 +1,0 @@
-
-
-class SudokuError(Exception):
-	pass
