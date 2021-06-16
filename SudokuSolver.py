@@ -2,31 +2,56 @@ class SudokuSolver(object):
 	def __init__(self, grid):
 		self.grid = grid
 
+		self.solve()
+
 	def test_sudoku(self):
 		pass
 
+	def possible(self, y, x, n):
+		# n is the number we want to fill in
+		# 1st
+		# check if n already existed in vertical (y) axis
+		# if exists, return False (not possible)
+		for i in range(9):
+			if self.grid[y][i] == n:
+				return False
+
+		# 2nd
+		# check horizontal (x) axis
+		for i in range(9):
+			if self.grid[i][x] == n:
+				return False
+
+		# 3rd
+		# check the 3x3 local grid
+		x0 = (x // 3) * 3
+		y0 = (y // 3) * 3
+		for i in range(3):
+			for j in range(3):
+				if self.grid[y0 + i][x0 + j] == n:
+					return False
+
+		# return true if pass all 3 checks.
+		return True
+
 	def solve(self):
 		"""Solve puzzle with Recursive Backtracking"""
+		empty_spots = self.find_unsettled_spot()
+		if not empty_spots:
+			return True
+		else:
+			row, col = empty_spots
 
-		# todo: Change loop through all to loop through available spots
-		# Loop through all the slots
-		for i in range(0, 81):
-			# Configure the row and column
-			row = i // 9
-			col = i % 9
+		for i in range(1, 10):
+			if self.possible(row, col, i):
+				self.grid[row][col] = i
 
-			# On the next empty cell
-			if self.grid[row][col] == 0:
-				# Loop through the available numbers
-				for number in range(1, 10):
-					# Check if the number has no conflicts
-					if not self.no_conflicts(self.grid, row, col, number):
-						self.grid[row][col] = number
-						if not self.find_unsettled_spot(self):
-							break
-						else:
-							if self.solve:
-								return True
+				if self.solve():
+					return True
+
+				self.grid[row][col] = 0
+
+		return False
 
 	def no_conflicts(self, grid, row, col, number):
 		"""returns True if the number has been used in that row"""

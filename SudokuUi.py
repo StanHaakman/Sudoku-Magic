@@ -1,6 +1,8 @@
 import math
 from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM
 
+from SudokuSolver import SudokuSolver
+
 MARGIN = 30  # Pixels around the board
 SIDE = 50  # Width of every board cell.
 WIDTH = HEIGHT = MARGIN * 2 + SIDE * 9  # Width and height of the whole board
@@ -28,6 +30,9 @@ class SudokuUI(Frame):
 
 		new_game_button = Button(self, text = "Start nieuw spel", command = self.__new_game)
 		new_game_button.pack(fill = BOTH, side = BOTTOM)
+
+		solve_button = Button(self, text = "Solve It!", command = self.__solve)
+		solve_button.pack(fill = BOTH, side = TOP)
 
 		self.__draw_grid()
 		self.__draw_board()
@@ -135,5 +140,12 @@ class SudokuUI(Frame):
 	def __new_game(self):
 		self.game.new_game()
 		self.game.start()
+		self.canvas.delete("victory")
+		self.__draw_board()
+
+	def __solve(self):
+		self.solver = SudokuSolver(self.game.start_puzzle)
+		self.game.puzzle = self.solver.grid
+		print(self.game.puzzle)
 		self.canvas.delete("victory")
 		self.__draw_board()
