@@ -25,6 +25,14 @@ class SudokuUI(Frame):
 		self.canvas = Canvas(self, width = WIDTH, height = HEIGHT)
 		self.canvas.pack(fill = BOTH, side = TOP)
 
+		self.__draw_buttons()
+		self.__draw_grid()
+		self.__draw_board()
+
+		self.canvas.bind("<Button-1>", self.__cell_clicked)
+		self.canvas.bind("<Key>", self.__key_pressed)
+
+	def __draw_buttons(self):
 		clear_button = Button(self, text = "Verwijder eigen cijfers", command = self.__clear_answers)
 		clear_button.pack(fill = BOTH, side = BOTTOM)
 
@@ -49,12 +57,6 @@ class SudokuUI(Frame):
 		insane_game_button.grid(row=1, column=3)
 
 		new_game_frame.pack(fill=BOTH, side=BOTTOM)
-
-		self.__draw_grid()
-		self.__draw_board()
-
-		self.canvas.bind("<Button-1>", self.__cell_clicked)
-		self.canvas.bind("<Key>", self.__key_pressed)
 
 	def __draw_grid(self):
 		for i in range(10):
