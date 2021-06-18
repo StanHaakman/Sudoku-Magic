@@ -15,5 +15,5 @@ if __name__ == '__main__':
 
 	root = Tk()
 	SudokuUI(root, game)
-	root.geometry("%dx%d" % (WIDTH + (MARGIN * 2), HEIGHT + 150))
+	root.geometry("%dx%d" % (WIDTH + MARGIN, HEIGHT + 150))
 	root.mainloop()

@@ -28,6 +28,9 @@ class SudokuUI(Frame):
 		clear_button = Button(self, text = "Verwijder eigen cijfers", command = self.__clear_answers)
 		clear_button.pack(fill = BOTH, side = BOTTOM)
 
+		solve_button = Button(self, text = "Solve It!", command = self.__solve)
+		solve_button.pack(fill = BOTH, side = BOTTOM)
+
 		new_game_frame = Frame(self)
 
 		new_game_text = Label(new_game_frame, text = "Start nieuw spel:")
@@ -46,9 +49,6 @@ class SudokuUI(Frame):
 		insane_game_button.grid(row=1, column=3)
 
 		new_game_frame.pack(fill=BOTH, side=BOTTOM)
-
-		solve_button = Button(self, text = "Solve It!", command = self.__solve)
-		solve_button.pack(fill = BOTH, side = BOTTOM)
 
 		self.__draw_grid()
 		self.__draw_board()
