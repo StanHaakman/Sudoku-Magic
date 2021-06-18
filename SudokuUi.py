@@ -130,7 +130,17 @@ class SudokuUI(Frame):
 			return
 		if self.row >= 0 and self.col >= 0 and event.char in "1234567890":
 			column = [self.game.puzzle[i][self.col] for i in range(9)]
-			if int(event.char) not in self.game.puzzle[self.row] and int(event.char) not in column:
+
+			x0 = (self.col // 3) * 3
+			y0 = (self.row // 3) * 3
+
+			subgrid = []
+
+			for i in range(3):
+				for j in range(3):
+					subgrid.append(self.game.puzzle[y0 + i][x0 + j])
+
+			if int(event.char) not in self.game.puzzle[self.row] and int(event.char) not in column and int(event.char) not in subgrid:
 				self.game.puzzle[self.row][self.col] = int(event.char)
 				self.col, self.row = -1, -1
 				self.__draw_board()
