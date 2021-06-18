@@ -1,4 +1,9 @@
 class SudokuSolver(object):
+	"""
+	This class receives a grid and then solves it.
+
+	it does have the ability to return the solved grid to get the solved grid use 'className + .grid'
+	"""
 	def __init__(self, grid):
 		self.grid = grid
 		self.solve()
@@ -28,21 +33,17 @@ class SudokuSolver(object):
 		return False
 
 	def no_conflicts(self, row, col, number):
-		# 1st
-		# check if n already existed in vertical (y) axis
-		# if exists, return False (not possible)
+		# 1st Check if number is present in the given column
 		for i in range(9):
 			if self.grid[row][i] == number:
 				return False
 
-		# 2nd
-		# check horizontal (x) axis
+		# 2nd Check if number is present in the given row
 		for i in range(9):
 			if self.grid[i][col] == number:
 				return False
 
-		# 3rd
-		# check the 3x3 local grid
+		# 3rd Check if number is present in the 3x3 local grid
 		x0 = (col // 3) * 3
 		y0 = (row // 3) * 3
 		for i in range(3):
@@ -50,11 +51,14 @@ class SudokuSolver(object):
 				if self.grid[y0 + i][x0 + j] == number:
 					return False
 
-		# return true if pass all 3 checks.
+		# return true if pass all 3 checks
 		return True
 
 	def find_unsettled_spot(self):
-		"""return the next empty square coordinates in the grid"""
+		"""
+		Return the next unsettled spot
+		:return:
+		"""
 		for i in range(9):
 			for j in range(9):
 				if self.grid[i][j] == 0:
