@@ -9,30 +9,42 @@ class SudokuSolver(object):
 		self.solve()
 
 	def solve(self):
-		"""Solve puzzle with Recursive Backtracking"""
+		"""
+		Solve puzzle with Recursive Backtracking
+		:return:
+		"""
+
 		empty_spot = self.find_unsettled_spot()
 		if not empty_spot:
 			return True
 		else:
 			row, col = empty_spot
 
-		#  Loop through all the available numbers
-		for number in range(1, 10):
-			# If the number has no conflicts in its row, column or subgrid
-			if self.no_conflicts(row, col, number):
-				# Then overwrite the 0 with the new number
-				self.grid[row][col] = number
+			#  Loop through all the available numbers
+			for number in range(1, 10):
+				# If the number has no conflicts in its row, column or subgrid
+				if self.no_conflicts(row, col, number):
+					# Then overwrite the 0 with the new number
+					self.grid[row][col] = number
 
-				if self.solve():
-					return True
+					if self.solve():
+						return True
 
-				# This is where backtracking happens
-				# Reset the latest position back to 0 and try with new number value
-				self.grid[row][col] = 0
+					# This is where backtracking happens
+					# Reset the latest position back to 0 and try with new number value
+					self.grid[row][col] = 0
 
 		return False
 
 	def no_conflicts(self, row, col, number):
+		"""
+		This function returns false if there is a conflict in the given row col or square based on the given number.
+		:param row:
+		:param col:
+		:param number:
+		:return:
+		"""
+
 		# 1st Check if number is present in the given column
 		for i in range(9):
 			if self.grid[row][i] == number:

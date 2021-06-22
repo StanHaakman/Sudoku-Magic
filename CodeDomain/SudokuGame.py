@@ -1,4 +1,4 @@
-from SudokuBoard import SudokuBoard
+from CodeDomain.SudokuBoard import SudokuBoard
 
 
 class SudokuGame(object):

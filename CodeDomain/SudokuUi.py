@@ -1,8 +1,8 @@
 import math
 from copy import deepcopy
-from tkinter import Tk, Canvas, Frame, Button, BOTH, TOP, BOTTOM, Label
+from tkinter import Canvas, Frame, Button, BOTH, TOP, BOTTOM, Label
 
-from SudokuSolver import SudokuSolver
+from CodeDomain.SudokuSolver import SudokuSolver
 
 MARGIN = 30  # Pixels around the board
 SIDE = 50  # Width of every board cell.

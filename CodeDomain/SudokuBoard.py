@@ -1,4 +1,3 @@
-import copy
 from random import shuffle
 
 
