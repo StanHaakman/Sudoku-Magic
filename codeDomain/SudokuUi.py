@@ -44,7 +44,7 @@ class SudokuUI(Frame):
 		clear_button = Button(self, text = "Verwijder eigen cijfers", command = self.__clear_answers)
 		clear_button.pack(fill = BOTH, side = BOTTOM)
 
-		solve_button = Button(self, text = "Solve It!", command = self.__solve)
+		solve_button = Button(self, text = "Sudoku oplossen!", command = self.__solve)
 		solve_button.pack(fill = BOTH, side = BOTTOM)
 
 		new_game_frame = Frame(self)
