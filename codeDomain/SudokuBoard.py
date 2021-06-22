@@ -170,6 +170,11 @@ class SudokuBoard(object):
 		return non_empty_squares
 
 	def remove_numbers_from_board(self, remaining):
+		"""
+		This function removes numbers until the remaining numbers requirement is achieved.
+		:param remaining:
+		:return:
+		"""
 		non_empty_squares = self.get_non_empty_squares(self.board)
 		non_empty_squares_count = len(non_empty_squares)
 

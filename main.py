@@ -1,7 +1,7 @@
 from tkinter import Tk
 
-from CodeDomain.SudokuGame import SudokuGame
-from CodeDomain.SudokuUi import SudokuUI
+from codeDomain.SudokuGame import SudokuGame
+from codeDomain.SudokuUi import SudokuUI
 
 MARGIN = 20  # Pixels around the board
 SIDE = 50  # Width of every board cell.

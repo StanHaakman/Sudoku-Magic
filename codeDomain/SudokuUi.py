@@ -2,7 +2,7 @@ import math
 from copy import deepcopy
 from tkinter import Canvas, Frame, Button, BOTH, TOP, BOTTOM, Label
 
-from CodeDomain.SudokuSolver import SudokuSolver
+from codeDomain.SudokuSolver import SudokuSolver
 
 MARGIN = 30  # Pixels around the board
 SIDE = 50  # Width of every board cell.
@@ -50,19 +50,19 @@ class SudokuUI(Frame):
 		new_game_frame = Frame(self)
 
 		new_game_text = Label(new_game_frame, text = "Start nieuw spel:")
-		new_game_text.grid(row=0)
+		new_game_text.grid(row=0, sticky='ew')
 
 		easy_game_button = Button(new_game_frame, text = "Makkelijk", command = lambda: self.__new_game(40))
-		easy_game_button.grid(row=1, column=0)
+		easy_game_button.grid(row=1, column=0, sticky='ew')
 
 		medium_game_button = Button(new_game_frame, text = "Gemiddeld", command = lambda: self.__new_game(34))
-		medium_game_button.grid(row=1, column=1)
+		medium_game_button.grid(row=1, column=1, sticky='ew')
 
 		hard_game_button = Button(new_game_frame, text = "Moeilijk", command = lambda: self.__new_game(26))
-		hard_game_button.grid(row=1, column=2)
+		hard_game_button.grid(row=1, column=2, sticky='ew')
 
 		insane_game_button = Button(new_game_frame, text = "Onmogelijk", command = lambda: self.__new_game(17))
-		insane_game_button.grid(row=1, column=3)
+		insane_game_button.grid(row=1, column=3, sticky='ew')
 
 		new_game_frame.pack(fill=BOTH, side=BOTTOM)
 
