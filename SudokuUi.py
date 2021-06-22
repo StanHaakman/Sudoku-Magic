@@ -20,6 +20,10 @@ class SudokuUI(Frame):
 		self.__startUI()
 
 	def __startUI(self):
+		"""
+		Start the UI with the help op helper functions.
+		:return:
+		"""
 		self.parent.title("Magic Sudoku")
 		self.pack(fill = BOTH, expand = 2)
 		self.canvas = Canvas(self, width = WIDTH, height = HEIGHT)
@@ -33,6 +37,10 @@ class SudokuUI(Frame):
 		self.canvas.bind("<Key>", self.__key_pressed)
 
 	def __draw_buttons(self):
+		"""
+		This function creates and draws all the buttons of the UI.
+		:return:
+		"""
 		clear_button = Button(self, text = "Verwijder eigen cijfers", command = self.__clear_answers)
 		clear_button.pack(fill = BOTH, side = BOTTOM)
 
@@ -59,6 +67,10 @@ class SudokuUI(Frame):
 		new_game_frame.pack(fill=BOTH, side=BOTTOM)
 
 	def __draw_grid(self):
+		"""
+		This function creates the lines that makes up the grid.
+		:return:
+		"""
 		for i in range(10):
 			color = "black" if i % 3 == 0 else "gray"
 
@@ -75,6 +87,12 @@ class SudokuUI(Frame):
 			self.canvas.create_line(x0, y0, x1, y1, fill = color)
 
 	def __draw_board(self):
+		"""
+		This function deletes all the numbers from the canvas.
+		Then it fills them with the numbers.
+		If the number is not present in the original give that number a different color.
+		:return:
+		"""
 		self.canvas.delete("numbers")
 
 		for i in range(9):
@@ -89,11 +107,21 @@ class SudokuUI(Frame):
 					self.canvas.create_text(x, y, text = answer, tags = "numbers", fill = color, font=("Purisa", 20))
 
 	def __clear_answers(self):
+		"""
+		Clear all the filled in numbers and if the victory screen is present delete that to.
+		Then rebuild the board.
+		:return:
+		"""
 		self.game.start()
 		self.canvas.delete("victory")
 		self.__draw_board()
 
 	def __cell_clicked(self, event):
+		"""
+		When a cell is clicked determan which it was and call the function self.__draw_cursor.
+		:param event:
+		:return:
+		"""
 		if self.game.game_over:
 			return
 
@@ -115,6 +143,10 @@ class SudokuUI(Frame):
 		self.__draw_cursor()
 
 	def __draw_cursor(self):
+		"""
+		Draw a red line around of the clicked cell.
+		:return:
+		"""
 		self.canvas.delete("cursor")
 
 		if self.row >= 0 and self.col >= 0:
@@ -128,6 +160,14 @@ class SudokuUI(Frame):
 			)
 
 	def __key_pressed(self, event):
+		"""
+		Function which is called when a key gets pressed.
+		First check if its valid number and then, if the number pressed is allowed in that cell, place the number in the cell.
+		Then redraw the board and cursor and check if the game has been won.
+		If that's the case draw victory screen.
+		:param event:
+		:return:
+		"""
 		if self.game.game_over:
 			return
 		if self.row >= 0 and self.col >= 0 and event.char in "1234567890":
@@ -151,6 +191,10 @@ class SudokuUI(Frame):
 					self.__draw_victory()
 
 	def __draw_victory(self):
+		"""
+		Draw the victory screen.
+		:return:
+		"""
 		x0 = y0 = MARGIN + SIDE * 2
 		x1 = y1 = MARGIN + SIDE * 7
 		self.canvas.create_oval(
@@ -166,12 +210,24 @@ class SudokuUI(Frame):
 		)
 
 	def __new_game(self, remaining):
+		"""
+		This function calls the new_game function on the SudokuGame class.
+		Then starts a new game and if necessary deletes the victory screen and redraws the board.
+		:param remaining:
+		:return:
+		"""
 		self.game.new_game(remaining)
 		self.game.start()
 		self.canvas.delete("victory")
 		self.__draw_board()
 
 	def __solve(self):
+		"""
+		This function creates a new SudokuSolver class.
+		Then gives the instance the grid to solve.
+		When the algorithm is finished fill in the solved grid.
+		:return:
+		"""
 		self.solver = SudokuSolver(deepcopy(self.game.start_puzzle))
 		self.game.puzzle = self.solver.grid
 		self.canvas.delete("victory")
