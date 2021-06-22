@@ -20,6 +20,7 @@ class SudokuBoard(object):
 		This function creates a new board. This board will be fully filled in and valid.
 		:return:
 		"""
+
 		# create an initial matrix, or a list of a list
 		self.board = [[0 for i in range(9)] for j in range(9)]
 
