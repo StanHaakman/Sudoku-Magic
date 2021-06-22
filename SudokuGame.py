@@ -6,7 +6,7 @@ class SudokuGame(object):
 		"""
 		When you create a SudokuGame instance. Use the SudokuBoard class to create a new random and valid sudoku board.
 		"""
-		self.start_puzzle = SudokuBoard().get_board()
+		self.start_puzzle = SudokuBoard().board
 
 	def start(self):
 		"""
@@ -87,4 +87,4 @@ class SudokuGame(object):
 		:param remaining:
 		:return:
 		"""
-		self.start_puzzle = SudokuBoard(remaining).get_board()
+		self.start_puzzle = SudokuBoard(remaining).board
