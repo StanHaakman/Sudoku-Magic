@@ -229,6 +229,7 @@ class SudokuUI(Frame):
 		:return:
 		"""
 		self.solver = SudokuSolver(deepcopy(self.game.start_puzzle))
+		self.solver.solve()
 		self.game.puzzle = self.solver.grid
 		self.canvas.delete("victory")
 		self.__draw_board()
