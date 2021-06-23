@@ -1,1 +1,17 @@
+altgraph==0.17
+bottle==0.12.19
+bottle-websocket==0.2.9
+Eel==0.12.4
+future==0.18.2
+gevent==21.1.2
+gevent-websocket==0.10.1
+greenlet==1.1.0
+macholib==1.14
+Mako==1.1.4
+Markdown==3.3.4
+MarkupSafe==2.0.1
 numpy==1.20.3
+pdoc3==0.9.2
+whichcraft==0.6.1
+zope.event==4.5.0
+zope.interface==5.4.0
