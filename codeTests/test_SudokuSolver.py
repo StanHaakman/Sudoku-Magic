@@ -86,7 +86,7 @@ class TestSudokuSolver(unittest.TestCase):
 		self.assertTrue(testSolver.no_conflicts(0, 0, 4))
 
 	def test_speed(self):
-		total_test = 20
+		total_test = 100
 
 		total_duration = timeit.Timer(lambda: SudokuSolver(SudokuBoard(17).board).solve()).timeit(number = total_test)
 
