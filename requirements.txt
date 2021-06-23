@@ -12,6 +12,8 @@ Markdown==3.3.4
 MarkupSafe==2.0.1
 numpy==1.20.3
 pdoc3==0.9.2
+pyinstaller==4.3
+pyinstaller-hooks-contrib==2021.1
 whichcraft==0.6.1
 zope.event==4.5.0
 zope.interface==5.4.0
