@@ -1,5 +1,6 @@
 from tkinter import Tk
 
+from codeDomain.SudokuBoard import SudokuBoard
 from codeDomain.SudokuGame import SudokuGame
 from codeDomain.SudokuUi import SudokuUI
 
