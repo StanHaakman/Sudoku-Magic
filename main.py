@@ -13,6 +13,7 @@ if __name__ == '__main__':
 	game = SudokuGame()
 	game.start()
 
+	# Start tkinter object
 	root = Tk()
 	SudokuUI(root, game)
 	root.geometry("%dx%d" % (WIDTH + MARGIN, HEIGHT + 150))
